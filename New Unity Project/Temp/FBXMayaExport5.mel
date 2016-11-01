@@ -1,0 +1,23 @@
+print "Starting maya loading and fbx conversion \n";
+	
+if (`file -q -exists "/Users/Teeheefunnay/Desktop/GameDev/New Unity Project/Assets/house.mb"`)
+{		
+	file -o "/Users/Teeheefunnay/Desktop/GameDev/New Unity Project/Assets/house.mb";
+	FBXExportEmbeddedTextures -v false;
+	// FBXExportHardEdges -v true;
+	FBXExportApplyConstantKeyReducer -v false;
+	FBXExportShowUI -v false;
+
+	print "Before fbx export\n";
+	FBXExport -f "/Users/Teeheefunnay/Desktop/GameDev/New Unity Project/Temp/ExportedFBXFile.fbx";
+	print "after fbx export\n";
+}
+else
+	print "Could not open Maya file.";
+
+
+system ("rm \"/Users/Teeheefunnay/Desktop/GameDev/New Unity Project/Temp/CommandPipe\"");
+
+$donepipeKill = `fopen "/Users/Teeheefunnay/Desktop/GameDev/New Unity Project/Temp/SyncPipeKill" "w"`;
+fwrite $donepipeKill "Done";
+fclose $donepipeKill;
